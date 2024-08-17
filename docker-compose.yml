@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  app:
+    build: ./mediconnect/backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    env_file: .env
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=db_name
+
+volumes:
+  mongo-data:
