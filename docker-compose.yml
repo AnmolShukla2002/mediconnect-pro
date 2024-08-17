@@ -8,15 +8,18 @@ services:
     depends_on:
       - mongo
     env_file: .env
+    restart: always
+    working_dir: /app
+    command: npm start
 
   mongo:
     image: mongo:latest
     volumes:
       - mongo-data:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=password
-      - MONGO_INITDB_DATABASE=db_name
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_DATABASE}
 
 volumes:
   mongo-data:
